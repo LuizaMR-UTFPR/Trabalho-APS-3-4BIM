@@ -1,0 +1,56 @@
+
+digraph G {
+  graph [rankdir=LR, bgcolor="#0D0E13", pad="0.4", nodesep="0.35", ranksep="1.0", splines=ortho];
+  node [fontname="DejaVu Sans", fontsize=11, color="#424651", fontcolor="#FFFFFF", style="filled", fillcolor="#171922", penwidth=1.5];
+  edge [fontname="DejaVu Sans", fontsize=9, color="#9DA2B0", fontcolor="#D7D8DE", penwidth=1.2];
+
+  subgraph cluster_system {
+    label="MORTAL ARENA — SISTEMA";
+    fontname="DejaVu Sans Bold"; fontsize=16; fontcolor="#FFFFFF";
+    color="#353846"; penwidth=1.5; style="rounded";
+
+    iniciar [label="Iniciar jogo", shape=ellipse];
+    instrucoes [label="Visualizar\ninstruções", shape=ellipse];
+    ranking [label="Consultar\nranking", shape=ellipse];
+    selecionar [label="Escolher\npersonagem", shape=ellipse];
+    jogar [label="Jogar partida", shape=ellipse];
+    atacar [label="Realizar ataque", shape=ellipse];
+    defender [label="Defender", shape=ellipse];
+    especial [label="Usar golpe\nespecial", shape=ellipse];
+    pausar [label="Pausar partida", shape=ellipse];
+    finalizar [label="Finalizar\npartida", shape=ellipse];
+    calcular [label="Calcular\npontuação", shape=ellipse];
+    salvar [label="Salvar\npontuação", shape=ellipse];
+    resultado [label="Visualizar\nresultado", shape=ellipse];
+    novamente [label="Jogar\nnovamente", shape=ellipse];
+    menu [label="Voltar ao\nmenu", shape=ellipse];
+
+    iniciar -> selecionar [label="<<include>>"];
+    jogar -> atacar [label="<<include>>"];
+    finalizar -> calcular [label="<<include>>"];
+    finalizar -> salvar [label="<<include>>"];
+    finalizar -> resultado [label="<<include>>"];
+
+    defender -> jogar [label="<<extend>>", style=dashed, arrowhead=vee];
+    especial -> jogar [label="<<extend>>", style=dashed, arrowhead=vee];
+    pausar -> jogar [label="<<extend>>", style=dashed, arrowhead=vee];
+    novamente -> resultado [label="<<extend>>", style=dashed, arrowhead=vee];
+
+    {rank=same; iniciar; instrucoes; ranking}
+    {rank=same; selecionar; jogar}
+    {rank=same; atacar; defender; especial; pausar}
+    {rank=same; finalizar; calcular; salvar; resultado}
+  }
+
+  jogador [label="JOGADOR", shape=box, style="rounded,filled", fillcolor="#2A2D38", color="#D83B3B", penwidth=2, fontsize=14];
+  jogador -> iniciar;
+  jogador -> instrucoes;
+  jogador -> ranking;
+  jogador -> selecionar;
+  jogador -> jogar;
+  jogador -> defender;
+  jogador -> especial;
+  jogador -> pausar;
+  jogador -> novamente;
+  jogador -> menu;
+}
